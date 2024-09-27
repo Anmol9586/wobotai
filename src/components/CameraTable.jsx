@@ -234,15 +234,6 @@ const CameraTable = () => {
           }}
         >
         Cameras
-          <span
-            style={{ display: "flex", justifyContent: "center", flexGrow: 1 }}
-          >
-            <img
-              src="../Assests/wobotailogo.png" 
-              alt="Wobot logo" 
-              style={{ width: "10%", height: "auto", marginBottom: "2rem" ,marginRight:"15rem"}} 
-            />
-          </span>
         </h3>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h5 style = {{color:"#666666"}}>Manage your cameras here.</h5>

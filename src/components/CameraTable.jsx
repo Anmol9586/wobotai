@@ -220,137 +220,148 @@ const CameraTable = () => {
 
   return (
     <div
-      style={{ width: "100%", padding: "20px", backgroundColor: "whitesmoke" }}
-    >
-      <div>
-        <h3
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            alignItems: "center",
-            textAlign: "left",
-            fontWeight:"bold"
-            
-          }}
-        >
-        Cameras
-        </h3>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <h5 style = {{color:"#666666"}}>Manage your cameras here.</h5>
+  style={{
+    width: "100%",
+    padding: "20px",
+    backgroundColor: "whitesmoke",
+    position: "relative",
+  }}
+>
+  {/* Logo centered at the top */}
+  <div
+    style={{
+      position: "absolute",
+      top: "10px",
+      left: "50%",
+      transform: "translateX(-50%)", // Centers the logo horizontally
+      textAlign: "center",
+    }}
+  >
+    <img
+      src={"../Assests/wobot-logo_blue.png"}
+      alt="Wobot Logo"
+      style={{ width: "100px", height: "100px" }}
+    />
+  </div>
 
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ width: "20%", marginBottom: "1rem" }} 
-          />
-        </div>
-      </div>
+  {/* Heading aligned to the top-left */}
+  <div
+    style={{
+      textAlign: "left", // Aligns the text to the left
+      position: "absolute",
+      top: "10px", // Moves the heading to the top
+      left: "10px", // Aligns it to the left
+    }}
+  >
+    <h3 style={{ fontWeight: "bold", marginLeft:"10px", marginTop:"22px" }}>Cameras</h3>
+  </div>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "0.3rem",
-          marginBottom: "1rem",
-          width: "20%",
-        }}
-      >
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Location"
-          value={locationFilter}
-          onChange={(e) => setLocationFilter(e.target.value)}
+  {/* Filters and Table content */}
+  <div
+    style={{
+      display: "flex",
+      gap: "0.3rem",
+      marginBottom: "1rem",
+      marginTop: "4rem", // Adds space below the logo and heading
+      width: "20%",
+    }}
+  >
+    <input
+      className="form-control"
+      type="text"
+      placeholder="Location"
+      value={locationFilter}
+      onChange={(e) => setLocationFilter(e.target.value)}
+    />
+    <input
+      className="form-control"
+      type="text"
+      placeholder="Status"
+      value={statusFilter}
+      onChange={(e) => setStatusFilter(e.target.value)}
+    />
+  </div>
+  {/* Table and other content below */}
+  <div
+    style={{
+      width: "100%",
+      backgroundColor: "whitesmoke",
+      position: "relative",
+    }}
+  >
+    {filteredData.length > 0 ? (
+      <>
+        <BootstrapTable
+          keyField="_id"
+          data={filteredData}
+          columns={columns}
+          pagination={paginationFactory(options)}
         />
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Status"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        />
-      </div>
-      <div
-        style={{
-          width: "100%",
-          backgroundColor: "whitesmoke",
-          position: "relative",
-        }}
-      >
-        {filteredData.length > 0 ? (
-          <>
-            <BootstrapTable
-              keyField="_id"
-              data={filteredData}
-              columns={columns}
-              pagination={paginationFactory(options)}
-            />
-          </>
-        ) : (
-          <div>No data found</div>
-        )}
-      </div>
+      </>
+    ) : (
+      <div>No data found</div>
+    )}
+  </div>
 
-     
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        contentLabel="Update Camera Status"
-        ariaHideApp={false}
-        style={{
-          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-          content: {
-            top: "50%",
-            left: "50%",
-            right: "auto",
-            bottom: "auto",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            padding: "20px",
-            width: "400px",
-            boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-          },
-        }}
-      >
-        <div className="modal-header" style={{display:"flex", justifyContent:"start"}}>
-          <h3>Update Camera Status</h3>
-        </div>
-        <div style={{display:"flex", justifyContent:"start"}}>
-          <label style={{fontSize:"1rem", marginTop:"10px"}}>
-            New Status:
-            <select
-              className="form-control"
-              value={newStatus}
-              onChange={(e) => setNewStatus(e.target.value)}
-              style={{ width: "22.5rem", marginTop:"10px" }}
-            >
-              <option value="" disabled>
-                Select status
-              </option>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </label>
-        </div>
-        <div style={{ marginTop: "20px", display:"flex", justifyContent:"end"}}>
-          <button
-            className="btn btn-success"
-            onClick={handleUpdateStatus}
-            style={{ marginRight: "10px" }}
-          >
-            Save
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={() => setModalIsOpen(false)}
-          >
-            Cancel
-          </button>
-        </div>
-      </Modal>
+  {/* Modal */}
+  <Modal
+    isOpen={modalIsOpen}
+    onRequestClose={() => setModalIsOpen(false)}
+    contentLabel="Update Camera Status"
+    ariaHideApp={false}
+    style={{
+      overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+      content: {
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        transform: "translate(-50%, -50%)",
+        borderRadius: "10px",
+        padding: "20px",
+        width: "400px",
+        boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+      },
+    }}
+  >
+    <div className="modal-header" style={{ display: "flex", justifyContent: "start" }}>
+      <h3>Update Camera Status</h3>
     </div>
+    <div style={{ display: "flex", justifyContent: "start" }}>
+      <label style={{ fontSize: "1rem", marginTop: "10px" }}>
+        New Status:
+        <select
+          className="form-control"
+          value={newStatus}
+          onChange={(e) => setNewStatus(e.target.value)}
+          style={{ width: "22.5rem", marginTop: "10px" }}
+        >
+          <option value="" disabled>
+            Select status
+          </option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </label>
+    </div>
+    <div style={{ marginTop: "20px", display: "flex", justifyContent: "end" }}>
+      <button
+        className="btn btn-success"
+        onClick={handleUpdateStatus}
+        style={{ marginRight: "10px" }}
+      >
+        Save
+      </button>
+      <button
+        className="btn btn-secondary"
+        onClick={() => setModalIsOpen(false)}
+      >
+        Cancel
+      </button>
+    </div>
+  </Modal>
+</div>
+
   );
 };
 

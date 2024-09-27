@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
-import "./style.css"; 
+import "./style.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import BootstrapTable from "react-bootstrap-table-next";
@@ -12,11 +12,11 @@ const CameraTable = () => {
   const [error, setError] = useState(null);
   const [locationFilter, setLocationFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
-  const [searchQuery, setSearchQuery] = useState(""); 
+  const [searchQuery, setSearchQuery] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentCamera, setCurrentCamera] = useState(null);
   const [newStatus, setNewStatus] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [sizePerPage, setSizePerPage] = useState(10);
 
@@ -66,39 +66,27 @@ const CameraTable = () => {
     {
       dataField: "name",
       text: "Name",
-      headerStyle: { color: '#666666'},
+      headerStyle: { color: "#666666" },
       formatter: (cell) => {
-        return (
-          <span style={{ color: '#666666' }}> 
-            {cell ? cell : "N/A"}
-          </span>
-        );
-      }
+        return <span style={{ color: "#666666" }}>{cell ? cell : "N/A"}</span>;
+      },
     },
-    
+
     {
       dataField: "location",
       text: "Location",
-      headerStyle: { color: '#666666'},
-       formatter: (cell) => {
-        return (
-          <span style={{ color: '#666666' }}> 
-            {cell ? cell : "N/A"}
-          </span>
-        );
-      }
+      headerStyle: { color: "#666666" },
+      formatter: (cell) => {
+        return <span style={{ color: "#666666" }}>{cell ? cell : "N/A"}</span>;
+      },
     },
     {
       dataField: "recorder",
       text: "Recorder",
-      headerStyle: { color: '#666666'},
+      headerStyle: { color: "#666666" },
       formatter: (cell) => {
-        return (
-          <span style={{ color: '#666666' }}> 
-            {cell ? cell : "N/A"}
-          </span>
-        );
-      }
+        return <span style={{ color: "#666666" }}>{cell ? cell : "N/A"}</span>;
+      },
     },
     {
       dataField: "tasks",
@@ -115,13 +103,13 @@ const CameraTable = () => {
     {
       dataField: "status",
       text: "Status",
-      headerStyle: { color: '#666666' },
+      headerStyle: { color: "#666666" },
       formatter: statusFormatter,
     },
     {
       dataField: "action",
       text: "Action",
-      headerStyle: { color: '#666666' }, 
+      headerStyle: { color: "#666666" },
       formatter: (cell, row) => (
         <button
           className="btn btn-primary"
@@ -139,7 +127,7 @@ const CameraTable = () => {
   ];
 
   const fetchCameras = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await fetch(
         "https://api-app-staging.wobot.ai/app/v1/fetch/cameras",
@@ -160,7 +148,7 @@ const CameraTable = () => {
       setError("Failed to fetch data. Please try again later.");
       console.log(error);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -183,11 +171,11 @@ const CameraTable = () => {
     const statusMatch = statusFilter
       ? val.status.toLowerCase() === statusFilter.toLowerCase()
       : true;
-      const searchMatch =
+    const searchMatch =
       val.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       val.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
       val.recorder.toLowerCase().includes(searchQuery.toLowerCase());
-    return locationMatch && statusMatch && searchMatch; 
+    return locationMatch && statusMatch && searchMatch;
   });
 
   const customTotal = (from, to, size) => (
@@ -220,55 +208,85 @@ const CameraTable = () => {
 
   return (
     <div
-      style={{ width: "100%", padding: "0 20px 20px 20px", backgroundColor: "whitesmoke" }}
+      style={{
+        width: "100%",
+        padding: "0 20px 20px 20px",
+        backgroundColor: "whitesmoke",
+      }}
     >
-      {/* Header and Logo section */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
-        <h3 style={{ fontWeight: "bold", margin: 0 }}>Cameras</h3>
-        <img
-          src={"../Assests/wobot-logo_blue.png"}
-          alt="Wobot Logo"
-          style={{ width: "100px", height: "100px", marginLeft: "auto", marginRight: "auto" }}
-        />
-      </div>
-
-      {/* Searchbar section */}
-      <div style={{display:"flex"}}>
       <div
         style={{
           display: "flex",
-          gap: "0.3rem",
-          marginBottom: "1rem",
-          width: "50%",
+          justifyContent: "space-between",
+          alignItems: "center"
+         
+          
         }}
       >
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Location"
-          value={locationFilter}
-          onChange={(e) => setLocationFilter(e.target.value)}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            gap: "0.2rem",
+            marginTop:'5rem'
+          }}
+        >
+          <h3 style={{ fontWeight: "bold", margin: 0 }}>Cameras</h3>
+          <h5 style={{ fontWeight: "normal", margin: 0,color :"#666666" }}>
+            Manage your Cameras here.
+          </h5>
+        </div>
+        <img
+          src={"../Assests/wobot-logo_blue.png"}
+          alt="Wobot Logo"
+          style={{
+            width: "100px",
+            height: "100px",
+            marginLeft: "auto",
+            marginRight:"15rem",
+            marginBottom:"5rem"
+            
+          }}
         />
-        <input
-          className="form-control"
-          type="text"
-          placeholder="Status"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        />
-      </div>
-      <div style={{width:"100%",display: "flex",justifyContent: "end"}}>
-      <input
+        <div style={{ width: "30%", display: "flex", justifyContent: "end",marginRight:"2rem",marginTop:'5rem' }}>
+          <input
             className="form-control"
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ marginBottom: "1rem" , width:"50%"}} 
+            style={{ marginBottom: "1rem", width: "50%" }}
           />
+        </div>
       </div>
+
+      <div style={{ display: "flex" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "0.3rem",
+            marginBottom: "0.5rem",
+            width: "50%",
+          }}
+        >
+          <input  style ={{width : "20%"}}
+            className="form-control"
+            type="text"
+            placeholder="Location"
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+          />
+          <input  style ={{width : "20%"}}
+            className="form-control"
+            type="text"
+            placeholder="Status"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          />
+        </div>
+        
       </div>
-      
 
       <div
         style={{
@@ -291,63 +309,67 @@ const CameraTable = () => {
         )}
       </div>
 
-     
       <Modal
-    isOpen={modalIsOpen}
-    onRequestClose={() => setModalIsOpen(false)}
-    contentLabel="Update Camera Status"
-    ariaHideApp={false}
-    style={{
-      overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-      content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        transform: "translate(-50%, -50%)",
-        borderRadius: "10px",
-        padding: "20px",
-        width: "400px",
-        boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
-      },
-    }}
-  >
-    <div className="modal-header" style={{ display: "flex", justifyContent: "start" }}>
-      <h3>Update Camera Status</h3>
-    </div>
-    <div style={{ display: "flex", justifyContent: "start" }}>
-      <label style={{ fontSize: "1rem", marginTop: "10px" }}>
-        New Status:
-        <select
-          className="form-control"
-          value={newStatus}
-          onChange={(e) => setNewStatus(e.target.value)}
-          style={{ width: "22.5rem", marginTop: "10px" }}
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Update Camera Status"
+        ariaHideApp={false}
+        style={{
+          overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" },
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            padding: "20px",
+            width: "400px",
+            boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)",
+          },
+        }}
+      >
+        <div
+          className="modal-header"
+          style={{ display: "flex", justifyContent: "start" }}
         >
-          <option value="" disabled>
-            Select status
-          </option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-      </label>
-    </div>
-    <div style={{ marginTop: "20px", display: "flex", justifyContent: "end" }}>
-      <button
-        className="btn btn-success"
-        onClick={handleUpdateStatus}
-        style={{ marginRight: "10px" }}
-      >
-        Save
-      </button>
-      <button
-        className="btn btn-secondary"
-        onClick={() => setModalIsOpen(false)}
-      >
-        Cancel
-      </button>
-    </div>
-  </Modal>
+          <h3>Update Camera Status</h3>
+        </div>
+        <div style={{ display: "flex", justifyContent: "start" }}>
+          <label style={{ fontSize: "1rem", marginTop: "10px" }}>
+            New Status:
+            <select
+              className="form-control"
+              value={newStatus}
+              onChange={(e) => setNewStatus(e.target.value)}
+              style={{ width: "22.5rem", marginTop: "10px" }}
+            >
+              <option value="" disabled>
+                Select status
+              </option>
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </label>
+        </div>
+        <div
+          style={{ marginTop: "20px", display: "flex", justifyContent: "end" }}
+        >
+          <button
+            className="btn btn-success"
+            onClick={handleUpdateStatus}
+            style={{ marginRight: "10px" }}
+          >
+            Save
+          </button>
+          <button
+            className="btn btn-secondary"
+            onClick={() => setModalIsOpen(false)}
+          >
+            Cancel
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 };

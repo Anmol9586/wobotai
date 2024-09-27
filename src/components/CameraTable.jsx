@@ -183,7 +183,7 @@ const CameraTable = () => {
     const statusMatch = statusFilter
       ? val.status.toLowerCase() === statusFilter.toLowerCase()
       : true;
-    const searchMatch =
+      const searchMatch =
       val.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       val.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
       val.recorder.toLowerCase().includes(searchQuery.toLowerCase());
@@ -220,91 +220,79 @@ const CameraTable = () => {
 
   return (
     <div
-  style={{
-    width: "100%",
-    padding: "20px",
-    backgroundColor: "whitesmoke",
-    position: "relative",
-  }}
->
-  {/* Logo centered at the top */}
-  <div
-    style={{
-      position: "absolute",
-      top: "10px",
-      left: "50%",
-      transform: "translateX(-50%)", // Centers the logo horizontally
-      textAlign: "center",
-    }}
-  >
-    <img
-      src={"../Assests/wobot-logo_blue.png"}
-      alt="Wobot Logo"
-      style={{ width: "100px", height: "100px" }}
-    />
-  </div>
-
-  {/* Heading aligned to the top-left */}
-  <div
-    style={{
-      textAlign: "left", // Aligns the text to the left
-      position: "absolute",
-      top: "10px", // Moves the heading to the top
-      left: "10px", // Aligns it to the left
-    }}
-  >
-    <h3 style={{ fontWeight: "bold", marginLeft:"10px", marginTop:"22px" }}>Cameras</h3>
-  </div>
-
-  {/* Filters and Table content */}
-  <div
-    style={{
-      display: "flex",
-      gap: "0.3rem",
-      marginBottom: "1rem",
-      marginTop: "4rem", // Adds space below the logo and heading
-      width: "20%",
-    }}
-  >
-    <input
-      className="form-control"
-      type="text"
-      placeholder="Location"
-      value={locationFilter}
-      onChange={(e) => setLocationFilter(e.target.value)}
-    />
-    <input
-      className="form-control"
-      type="text"
-      placeholder="Status"
-      value={statusFilter}
-      onChange={(e) => setStatusFilter(e.target.value)}
-    />
-  </div>
-  {/* Table and other content below */}
-  <div
-    style={{
-      width: "100%",
-      backgroundColor: "whitesmoke",
-      position: "relative",
-    }}
-  >
-    {filteredData.length > 0 ? (
-      <>
-        <BootstrapTable
-          keyField="_id"
-          data={filteredData}
-          columns={columns}
-          pagination={paginationFactory(options)}
+      style={{ width: "100%", padding: "0 20px 20px 20px", backgroundColor: "whitesmoke" }}
+    >
+      {/* Header and Logo section */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
+        <h3 style={{ fontWeight: "bold", margin: 0 }}>Cameras</h3>
+        <img
+          src={"../Assests/wobot-logo_blue.png"}
+          alt="Wobot Logo"
+          style={{ width: "100px", height: "100px", marginLeft: "auto", marginRight: "auto" }}
         />
-      </>
-    ) : (
-      <div>No data found</div>
-    )}
-  </div>
+      </div>
 
-  {/* Modal */}
-  <Modal
+      {/* Searchbar section */}
+      <div style={{display:"flex"}}>
+      <div
+        style={{
+          display: "flex",
+          gap: "0.3rem",
+          marginBottom: "1rem",
+          width: "50%",
+        }}
+      >
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Location"
+          value={locationFilter}
+          onChange={(e) => setLocationFilter(e.target.value)}
+        />
+        <input
+          className="form-control"
+          type="text"
+          placeholder="Status"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        />
+      </div>
+      <div style={{width:"100%",display: "flex",justifyContent: "end"}}>
+      <input
+            className="form-control"
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={{ marginBottom: "1rem" , width:"50%"}} 
+          />
+      </div>
+      </div>
+      
+
+      <div
+        style={{
+          width: "100%",
+          backgroundColor: "whitesmoke",
+          position: "relative",
+        }}
+      >
+        {filteredData.length > 0 ? (
+          <>
+            <BootstrapTable
+              keyField="_id"
+              data={filteredData}
+              columns={columns}
+              pagination={paginationFactory(options)}
+            />
+          </>
+        ) : (
+          <div>No data found</div>
+        )}
+      </div>
+
+     
+      <Modal
     isOpen={modalIsOpen}
     onRequestClose={() => setModalIsOpen(false)}
     contentLabel="Update Camera Status"
@@ -360,8 +348,7 @@ const CameraTable = () => {
       </button>
     </div>
   </Modal>
-</div>
-
+    </div>
   );
 };
 

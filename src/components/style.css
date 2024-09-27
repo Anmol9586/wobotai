@@ -1,0 +1,42 @@
+.pagination {
+    display: flex  !important;
+    justify-content: flex-end !important;
+    list-style-type: none;
+}
+
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    color: #007bff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px 12px;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination .active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+.dropdown-menu {
+    min-width: 100px;
+}
+
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
